@@ -1,10 +1,18 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using System;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
 namespace MediaSharer.Core
 {
     public class CorePage : Page
     {
+        public CorePage()
+        {
+            Loaded += (o,i) => LoadState();
+            Unloaded += (o,i) => SaveState();
+        }
+
         #region Properties
 
         public virtual CorePageViewModel ViewModel
@@ -15,20 +23,18 @@ namespace MediaSharer.Core
 
         #endregion Properties
 
-        #region Overridden methods
+        #region Privates methods
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void LoadState()
         {
-            ViewModel?.LoadState(e.Parameter, e.NavigationMode);
-            base.OnNavigatedTo(e);
+            ViewModel?.LoadState();
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        private void SaveState()
         {
-            ViewModel?.SaveState(e.NavigationMode);
-            base.OnNavigatedFrom(e);
+            ViewModel?.SaveState();
         }
 
-        #endregion Overridden methods
+        #endregion Privates methods
     }
 }

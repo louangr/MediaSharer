@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace MediaSharer.Core
 {
@@ -23,12 +22,12 @@ namespace MediaSharer.Core
 
         #region Public virtual methods
 
-        public virtual void LoadState(object parameter, NavigationMode navigationMode)
+        public virtual void LoadState()
         {
 
         }
 
-        public virtual void SaveState(NavigationMode navigationMode)
+        public virtual void SaveState()
         {
         }
 

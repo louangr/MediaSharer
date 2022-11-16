@@ -9,5 +9,12 @@ namespace MediaSharer.Views
             this.InitializeComponent();
             this.DataContext = App.Current.Services.GetService(typeof(DashboardPageViewModel));
         }
+
+        #region Properties
+
+        public DashboardPageViewModel PageViewModel
+            => DataContext as DashboardPageViewModel;
+
+        #endregion
     }
 }
