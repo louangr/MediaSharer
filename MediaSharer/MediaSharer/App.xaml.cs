@@ -12,9 +12,6 @@ namespace MediaSharer
     /// </summary>
     public partial class App : Application
     {
-        private Window m_window;
-        private IntPtr m_windowHandle;
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -33,9 +30,11 @@ namespace MediaSharer
         /// <summary>
         /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
         /// </summary>
-        public IServiceProvider Services { get; private set; }
+        public IServiceProvider Services;
 
-        public IntPtr WindowHandle => m_windowHandle;
+        public IntPtr WindowHandle { get; private set; }
+
+        public Window MainWindow { get; private set; }
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -44,10 +43,10 @@ namespace MediaSharer
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            m_window = new MainWindow();
-            m_windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(m_window);
+            MainWindow = new MainWindow();
+            WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(MainWindow);
 
-            m_window.Activate();
+            MainWindow.Activate();
         }
     }
 }

@@ -19,16 +19,16 @@
                     Margin="0,0,0,12">
             <Button Content="Parcourir..."
                     Margin="0,0,12,0"
-                    Command="{x:Bind PageViewModel.PickImagesCommand}" />
-            <Button x:Name="ShareButton"
-                    FontFamily="Segoe UI Symbol"
+                    Command="{x:Bind PageViewModel.PickFilesCommand}" />
+            <Button FontFamily="Segoe UI Symbol"
                     Content="&#xE2B4; Partager"
-                    Command="{x:Bind PageViewModel.ShareImageCommand}" />
+                    Command="{x:Bind PageViewModel.ShareItemCommand}" />
         </StackPanel>
 
         <ScrollViewer Grid.Row="1">
             <GridView x:Name="ImageGridView"
-                      ItemsSource="{x:Bind PageViewModel.Images}"
+                      ItemsSource="{x:Bind PageViewModel.Items}"
+                      SelectedItem="{x:Bind PageViewModel.SelectedItem, Mode=TwoWay}"
                       IsItemClickEnabled="False"
                       CanDragItems="False"
                       AllowDrop="False"
@@ -36,11 +36,19 @@
                       SelectionMode="Single">
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                        <Image Stretch="Uniform"
-                               Source="{Binding}"
-                               Width="190"
-                               Height="130"
-                               AutomationProperties.AccessibilityView="Raw" />
+                        <Grid Width="190"
+                              Height="130">
+                            <Image Stretch="Uniform"
+                                   Source="{Binding Thumbnail}"
+                                   Visibility="{Binding HasThumbnail, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"
+                                   AutomationProperties.AccessibilityView="Raw" />
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                      Glyph="&#xE768;"
+                                      FontSize="30"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Visibility="{Binding HasThumbnail, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True, Mode=OneWay}" />
+                        </Grid>
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>

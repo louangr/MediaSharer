@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
+﻿using Microsoft.UI.Xaml.Controls;
 
 namespace MediaSharer.Core
 {
@@ -21,7 +18,17 @@ namespace MediaSharer.Core
             set => this.DataContext = value;
         }
 
+        public bool IsFullScreen => (App.Current.MainWindow as MainWindow).IsFullScreen;
+
         #endregion Properties
+
+        #region Public methods
+
+        public void GoBack() => (App.Current.MainWindow as MainWindow).GoBack();
+
+        public void ToggleFullScreen() => (App.Current.MainWindow as MainWindow).ToggleFullScreen();
+
+        #endregion Public methods
 
         #region Privates methods
 

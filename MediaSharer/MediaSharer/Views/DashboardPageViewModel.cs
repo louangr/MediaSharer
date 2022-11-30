@@ -5,7 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using MediaSharer.Core;
+using MediaSharer.Models;
 using Microsoft.UI.Xaml.Media.Imaging;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
@@ -15,12 +18,15 @@ namespace MediaSharer.Views
     public class DashboardPageViewModel : CorePageViewModel
     {
         #region Private fields
-        
-        private RelayCommand pickImagesCommand;
-        private RelayCommand shareImageCommand;
+
+        private readonly List<string> IMAGE_FILE_TYPES = new List<string>() { ".jpg", ".jpeg", ".png" };
+        private readonly List<string> VIDEO_FILE_TYPES = new List<string>() { ".mp4", ".avi", ".mkv" };
+
+        private RelayCommand pickFilesCommand;
+        private RelayCommand shareItemCommand;
         private FileOpenPicker picker;
-        private ObservableCollection<BitmapImage> images;
-        private bool isSharingImage;
+        private ObservableCollection<Item> items;
+        private Item selectedItem;
 
         #endregion Private fields
 
@@ -31,30 +37,29 @@ namespace MediaSharer.Views
 
         #region Properties
 
-        public bool IsSharingImage
+        public ObservableCollection<Item> Items
         {
-            get => isSharingImage;
+            get => items;
             set
             {
-                SetProperty(ref isSharingImage, value);
+                SetProperty(ref items, value);
             }
         }
 
-        public ObservableCollection<BitmapImage> Images
+        public Item SelectedItem
         {
-            get => images;
+            get => selectedItem;
             set
             {
-                SetProperty(ref images, value);
+                SetProperty(ref selectedItem, value);
             }
         }
 
-        public RelayCommand PickImagesCommand
-            => pickImagesCommand ?? (pickImagesCommand = new RelayCommand(() => PickImages().ConfigureAwait(false)));
+        public RelayCommand PickFilesCommand
+            => pickFilesCommand ?? (pickFilesCommand = new RelayCommand(() => PickFiles().ConfigureAwait(false)));
 
-        public RelayCommand ShareImageCommand
-            => shareImageCommand ?? (shareImageCommand = new RelayCommand(() => ShareImage()));
-
+        public RelayCommand ShareItemCommand
+            => shareItemCommand ?? (shareItemCommand = new RelayCommand(() => Navigate(typeof(PlayerPage), SelectedItem)));
 
         #endregion Properties
 
@@ -71,35 +76,38 @@ namespace MediaSharer.Views
 
         private void Initialize()
         {
-            images = new ObservableCollection<BitmapImage>();
+            items = new ObservableCollection<Item>();
             picker = new FileOpenPicker();
             picker.ViewMode = PickerViewMode.Thumbnail;
             picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            picker.FileTypeFilter.Add(".jpg");
-            picker.FileTypeFilter.Add(".jpeg");
-            picker.FileTypeFilter.Add(".png");
+            IMAGE_FILE_TYPES.ForEach(t => picker.FileTypeFilter.Add(t));
+            VIDEO_FILE_TYPES.ForEach(t => picker.FileTypeFilter.Add(t));
         }
 
-        private async Task PickImages()
+        private async Task PickFiles()
         {
             List<StorageFile> newFiles = (await picker.PickMultipleFilesAsync()).ToList();
 
             if (newFiles != null && newFiles.Count > 0)
             {
                 newFiles.ForEach(async n => {
-                    using (IRandomAccessStream fileStream = await n.OpenAsync(FileAccessMode.Read))
+                    if (IMAGE_FILE_TYPES.Contains(n.FileType))
                     {
-                        BitmapImage bitmapImage = new BitmapImage();
-                        bitmapImage.SetSource(fileStream);
-                        images.Add(bitmapImage);
-                        OnPropertyChanged(nameof(Images));
+                        using (IRandomAccessStream fileStream = await n.OpenAsync(FileAccessMode.Read))
+                        {
+                            BitmapImage bitmapImage = new BitmapImage();
+                            bitmapImage.SetSource(fileStream);
+                            items.Add(new Item() { ImageContent = bitmapImage, Thumbnail = bitmapImage, HasThumbnail= true, IsImage = true });
+                        }
+                    }
+                    else
+                    {
+                        items.Add(new Item() { VideoContent = MediaSource.CreateFromStorageFile(n) });
                     }
                 });
+                
+                OnPropertyChanged(nameof(Items));
             }
-        }
-        
-        private void ShareImage()
-        {
         }
 
         #endregion Private methods

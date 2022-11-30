@@ -1,6 +1,7 @@
 ﻿<Application x:Class="MediaSharer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mtuconverters="using:CommunityToolkit.WinUI.UI.Converters"
              xmlns:local="using:MediaSharer">
     <Application.Resources>
         <ResourceDictionary>
@@ -9,6 +10,9 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
+
+            <mtuconverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <mtuconverters:BoolNegationConverter x:Key="BoolNegationConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

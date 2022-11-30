@@ -9,5 +9,11 @@
            BorderBrush="Transparent"
            BorderThickness="0"
            Background="Transparent"
-           Margin="0" />
+           Margin="0">
+        <Frame.ContentTransitions>
+            <TransitionCollection>
+                <NavigationThemeTransition />
+            </TransitionCollection>
+        </Frame.ContentTransitions>
+    </Frame>
 </Window>
