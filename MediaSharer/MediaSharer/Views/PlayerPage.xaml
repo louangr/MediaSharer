@@ -14,7 +14,6 @@
           Background="#000000">
         <Image x:Name="imageElement"
                Stretch="Uniform"
-               Margin="8"
                Visibility="Collapsed" />
 
         <MediaPlayerElement x:Name="mediaPlayerElement"

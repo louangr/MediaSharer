@@ -99,12 +99,12 @@ namespace MediaSharer.Views
                         {
                             BitmapImage bitmapImage = new BitmapImage();
                             bitmapImage.SetSource(fileStream);
-                            items.Add(new Item() { ImageContent = bitmapImage, Thumbnail = bitmapImage, HasThumbnail= true, IsImage = true });
+                            items.Add(new Item() { ImageContent = bitmapImage, Thumbnail = bitmapImage, HasThumbnail= true, ContentType = ContentType.Image });
                         }
                     }
                     else
                     {
-                        items.Add(new Item() { VideoContent = MediaSource.CreateFromStorageFile(n) });
+                        items.Add(new Item() { VideoContent = MediaSource.CreateFromStorageFile(n), ContentType = ContentType.Video, File = n });
                     }
                 });
                 

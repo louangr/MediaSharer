@@ -1,4 +1,6 @@
-﻿using MediaSharer.Core;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using MediaSharer.Core;
+using MediaSharer.Messaging;
 using MediaSharer.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -39,7 +41,7 @@ namespace MediaSharer.Views
 
         private void Initialize()
         {
-            if (item.IsImage)
+            if (item.ContentType == ContentType.Image)
             {
                 imageElement.Visibility = Visibility.Visible;
                 imageElement.Source = item.ImageContent;
@@ -54,6 +56,8 @@ namespace MediaSharer.Views
                 mediaPlayerElement.Visibility = Visibility.Visible;
                 mediaPlayerElement.SetMediaPlayer(mediaPlayer);
             }
+
+            WeakReferenceMessenger.Default.Send(new StartItemSharingMessage(item, mediaTimelineController));
         }
 
         private void PlayButtonClick(object sender, RoutedEventArgs e)
@@ -81,6 +85,7 @@ namespace MediaSharer.Views
 
         private void CloseButtonClick(object sender, RoutedEventArgs e)
         {
+            WeakReferenceMessenger.Default.Send(new StopItemSharingMessage());
             GoBack();
          
             if (IsFullScreen)

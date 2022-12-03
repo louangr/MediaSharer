@@ -7,8 +7,13 @@
         mc:Ignorable="d">
 
     <Grid Background="#000000"
-          DoubleTapped="Grid_DoubleTapped">
-        <TextBlock HorizontalAlignment="Center"
-                   VerticalAlignment="Center">Test2</TextBlock>
+          DoubleTapped="GridContainerDoubleTapped">
+        <Image x:Name="imageElement"
+               Stretch="Uniform"
+               Visibility="Collapsed" />
+
+        <MediaPlayerElement x:Name="mediaPlayerElement"
+                            Visibility="Collapsed"
+                            AreTransportControlsEnabled="False" />
     </Grid>
 </Window>
