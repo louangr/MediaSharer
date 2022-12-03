@@ -8,7 +8,6 @@ using MediaSharer.Core;
 using MediaSharer.Models;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.Media.Core;
-using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
@@ -52,8 +51,11 @@ namespace MediaSharer.Views
             set
             {
                 SetProperty(ref selectedItem, value);
+                OnPropertyChanged(nameof(HasSelectedItem));
             }
         }
+
+        public bool HasSelectedItem => SelectedItem != null;
 
         public RelayCommand PickFilesCommand
             => pickFilesCommand ?? (pickFilesCommand = new RelayCommand(() => PickFiles().ConfigureAwait(false)));
