@@ -1,9 +1,12 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using System;
+using CommunityToolkit.Mvvm.Messaging;
 using MediaSharer.Core;
 using MediaSharer.Messaging;
 using MediaSharer.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.Media;
 using Windows.Media.Playback;
@@ -14,6 +17,8 @@ namespace MediaSharer.Views
     {
         private Item item;
         private MediaTimelineController mediaTimelineController;
+        private double videoDurationInSeconds;
+        private bool isSeekSliderValueChangeable;
 
         public PlayerPage()
         {
@@ -46,15 +51,19 @@ namespace MediaSharer.Views
                 imageElement.Visibility = Visibility.Visible;
                 imageElement.Source = item.ImageContent;
                 playButton.Visibility = Visibility.Collapsed;
+                seekSlider.Visibility = Visibility.Collapsed;
             }
             else
             {
                 mediaTimelineController = new MediaTimelineController();
+                mediaTimelineController.PositionChanged += (o, i) => OnMediaTimelineControllerPositionChanged(o);
                 var mediaPlayer = new MediaPlayer() { Source = item.VideoContent, TimelineController = mediaTimelineController };
                 mediaPlayer.CommandManager.IsEnabled = false;
+                isSeekSliderValueChangeable = true;
 
                 mediaPlayerElement.Visibility = Visibility.Visible;
                 mediaPlayerElement.SetMediaPlayer(mediaPlayer);
+                mediaPlayerElement.MediaPlayer.PlaybackSession.NaturalDurationChanged += PlaybackSessionNaturalDurationChanged;
             }
 
             WeakReferenceMessenger.Default.Send(new StartItemSharingMessage(item, mediaTimelineController));
@@ -94,22 +103,60 @@ namespace MediaSharer.Views
             }
         }
 
-        private void GridContainerPointerExited(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void GridContainerPointerExited(object sender, PointerRoutedEventArgs e)
         {
             playerControls.Visibility = Visibility.Collapsed;
         }
 
-        private void GridContainerPointerEntered(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void GridContainerPointerEntered(object sender, PointerRoutedEventArgs e)
         {
             playerControls.Visibility = Visibility.Visible;
         }
 
-        private void GridContainerPointerPressed(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void GridContainerPointerPressed(object sender, PointerRoutedEventArgs e)
         {
             playerControls.Visibility = playerControls.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-
         }
-        
+
+        private void PlaybackSessionNaturalDurationChanged(MediaPlaybackSession sender, object args)
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                videoDurationInSeconds = sender.NaturalDuration.TotalSeconds;
+                seekSlider.Maximum = videoDurationInSeconds;
+            });
+        }
+
+        private void OnMediaTimelineControllerPositionChanged(MediaTimelineController o)
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                if (isSeekSliderValueChangeable)
+                {
+                    seekSlider.Value = o.Position.TotalSeconds;
+                }
+            });
+        }
+
+        private void SeekSliderManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            isSeekSliderValueChangeable = false;
+        }
+
+        private void SeekSliderManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            mediaTimelineController.Position = TimeSpan.FromSeconds((sender as Slider).Value);
+            isSeekSliderValueChangeable = true;
+        }
+
+        private void SeekSlideValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            if (isSeekSliderValueChangeable)
+            {
+                mediaTimelineController.Position = TimeSpan.FromSeconds((sender as Slider).Value);
+            }
+        }
+
         #endregion Private methods
     }
 }

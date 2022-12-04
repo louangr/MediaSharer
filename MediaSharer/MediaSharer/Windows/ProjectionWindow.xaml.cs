@@ -9,6 +9,7 @@ using MediaSharer.Messaging;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using MediaSharer.Models;
+using Microsoft.UI.Xaml.Input;
 
 namespace MediaSharer.Windows
 {
@@ -35,7 +36,7 @@ namespace MediaSharer.Windows
             return AppWindow.GetFromWindowId(myWndId);
         }
 
-        private void GridContainerDoubleTapped(object sender, Microsoft.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        private void GridContainerDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             m_appWindow.SetPresenter(m_appWindow.Presenter.Kind != AppWindowPresenterKind.FullScreen ? AppWindowPresenterKind.FullScreen : AppWindowPresenterKind.Default);
         }

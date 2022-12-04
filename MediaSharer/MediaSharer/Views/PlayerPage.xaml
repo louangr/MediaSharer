@@ -31,6 +31,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Button x:Name="playButton"
@@ -47,11 +48,22 @@
                           VerticalAlignment="Center" />
             </Button>
 
+            <Slider x:Name="seekSlider"
+                    Grid.Column="1"
+                    Padding="6,0,6,0"
+                    Width="300"
+                    VerticalAlignment="Center"
+                    ManipulationMode="All"
+                    ManipulationStarted="SeekSliderManipulationStarted"
+                    ManipulationCompleted="SeekSliderManipulationCompleted"
+                    ValueChanged="SeekSlideValueChanged"
+                    ThumbToolTipValueConverter="{StaticResource SecondToTimeConverter}" />
+
             <Button Margin="4"
                     Padding="6"
                     Background="Transparent"
                     BorderThickness="0"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Click="FullScreenWindowButtonClick">
                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
                           Glyph="&#xE1D9;"
@@ -65,7 +77,7 @@
                     Padding="6"
                     Background="Transparent"
                     BorderThickness="0"
-                    Grid.Column="2"
+                    Grid.Column="3"
                     Click="CloseButtonClick">
                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
                           Glyph="&#xE106;"
