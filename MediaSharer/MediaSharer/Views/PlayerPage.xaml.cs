@@ -64,6 +64,7 @@ namespace MediaSharer.Views
                 mediaPlayerElement.Visibility = Visibility.Visible;
                 mediaPlayerElement.SetMediaPlayer(mediaPlayer);
                 mediaPlayerElement.MediaPlayer.PlaybackSession.NaturalDurationChanged += PlaybackSessionNaturalDurationChanged;
+                mediaPlayerElement.MediaPlayer.MediaEnded += (o, i) => OnMediaPlayerMediaEnded();
             }
 
             WeakReferenceMessenger.Default.Send(new StartItemSharingMessage(item, mediaTimelineController));
@@ -92,7 +93,7 @@ namespace MediaSharer.Views
             icon.Glyph = icon.Glyph == "\xE1D9" ? "\xE1D8" : "\xE1D9";
         }
 
-        private void CloseButtonClick(object sender, RoutedEventArgs e)
+        private void Close()
         {
             if (IsFullScreen)
             {
@@ -157,6 +158,10 @@ namespace MediaSharer.Views
                 mediaTimelineController.Position = TimeSpan.FromSeconds((sender as Slider).Value);
             }
         }
+
+        private void CloseButtonClick(object sender, RoutedEventArgs e) => Close();
+
+        private void OnMediaPlayerMediaEnded() => DispatcherQueue.TryEnqueue(() => Close());
 
         #endregion Private methods
     }
