@@ -18,6 +18,7 @@ namespace MediaSharer.Core
 
             // ViewModels
             services.AddSingleton(typeof(DashboardPageViewModel));
+            services.AddSingleton(typeof(SettingsPageViewModel));
 
             return services.BuildServiceProvider();
         }

@@ -123,4 +123,19 @@
   <data name="DashboardPage_ShareTextBlock.Text" xml:space="preserve">
     <value>Partager</value>
   </data>
+  <data name="DefaultToggleSwitch.OffContent" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="DefaultToggleSwitch.OnContent" xml:space="preserve">
+    <value>Activé</value>
+  </data>
+  <data name="SettingsPage_AutoPlayLabel.Text" xml:space="preserve">
+    <value>AutoPlay</value>
+  </data>
+  <data name="SettingsPage_ExternalPlayerControlsLabel.Text" xml:space="preserve">
+    <value>Commandes du player externe</value>
+  </data>
+  <data name="SettingsPage_TitleTextBlock.Text" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
 </root>

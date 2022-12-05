@@ -123,4 +123,19 @@
   <data name="DashboardPage_ShareTextBlock.Text" xml:space="preserve">
     <value>Share</value>
   </data>
+  <data name="DefaultToggleSwitch.OffContent" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="DefaultToggleSwitch.OnContent" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="SettingsPage_AutoPlayLabel.Text" xml:space="preserve">
+    <value>AutoPlay</value>
+  </data>
+  <data name="SettingsPage_ExternalPlayerControlsLabel.Text" xml:space="preserve">
+    <value>External player controls</value>
+  </data>
+  <data name="SettingsPage_TitleTextBlock.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>

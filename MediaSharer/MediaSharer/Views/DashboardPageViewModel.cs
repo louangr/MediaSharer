@@ -27,6 +27,7 @@ namespace MediaSharer.Views
         private ObservableCollection<Item> items;
         private Item selectedItem;
         private int itemsCount;
+        private RelayCommand navigateToSettingsPageCommand;
 
         #endregion Private fields
 
@@ -52,17 +53,18 @@ namespace MediaSharer.Views
             set
             {
                 SetProperty(ref selectedItem, value);
-                OnPropertyChanged(nameof(HasSelectedItem));
+                ShareItemCommand.NotifyCanExecuteChanged();
             }
         }
-
-        public bool HasSelectedItem => SelectedItem != null;
 
         public RelayCommand PickFilesCommand
             => pickFilesCommand ?? (pickFilesCommand = new RelayCommand(() => PickFiles().ConfigureAwait(false)));
 
         public RelayCommand ShareItemCommand
-            => shareItemCommand ?? (shareItemCommand = new RelayCommand(() => Navigate(typeof(PlayerPage), SelectedItem)));
+            => shareItemCommand ?? (shareItemCommand = new RelayCommand(() => Navigate(typeof(PlayerPage), SelectedItem), () => SelectedItem != null));
+
+        public RelayCommand NavigateToSettingsPageCommand
+            => navigateToSettingsPageCommand ?? (navigateToSettingsPageCommand = new RelayCommand(() => Navigate(typeof(SettingsPage))));
 
         #endregion Properties
 
