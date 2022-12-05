@@ -1,6 +1,7 @@
 ﻿using MediaSharer.Core;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 
 namespace MediaSharer.Views
 {
@@ -22,6 +23,8 @@ namespace MediaSharer.Views
         #region Private methods
 
         private void TrashButtonClick(object sender, RoutedEventArgs e) => PageViewModel.DeleteItem((int)(sender as Button).CommandParameter);
+
+        private void ItemDoubleTapped(object sender, DoubleTappedRoutedEventArgs e) => PageViewModel.ShareItemCommand.Execute(null);
 
         #endregion Private methods
     }
