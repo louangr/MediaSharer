@@ -8,6 +8,9 @@ namespace MediaSharer.Models
     [DataContract]
     public class Item
     {
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+
         [DataMember(Name = "hasThumbnail")]
         public bool HasThumbnail { get; set; }
 

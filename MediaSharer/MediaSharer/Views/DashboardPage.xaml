@@ -25,7 +25,7 @@
                 <StackPanel Orientation="Horizontal">
                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
                               Glyph="&#xE2B4;"
-                              FontSize="18"
+                              FontSize="16"
                               Margin="0,0,8,0"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center" />
@@ -39,24 +39,54 @@
                       ItemsSource="{x:Bind PageViewModel.Items}"
                       SelectedItem="{x:Bind PageViewModel.SelectedItem, Mode=TwoWay}"
                       IsItemClickEnabled="False"
-                      CanDragItems="False"
-                      AllowDrop="False"
-                      CanReorderItems="False"
+                      CanDragItems="True"
+                      AllowDrop="True"
+                      CanReorderItems="True"
                       SelectionMode="Single">
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="190"
-                              Height="130">
+                        <Grid Width="190">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="130" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
                             <Image Stretch="Uniform"
                                    Source="{Binding Thumbnail}"
                                    Visibility="{Binding HasThumbnail, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"
                                    AutomationProperties.AccessibilityView="Raw" />
+
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
                                       Glyph="&#xE768;"
                                       FontSize="30"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       Visibility="{Binding HasThumbnail, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True, Mode=OneWay}" />
+
+                            <Grid Grid.Row="1"
+                                  Margin="6,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Text="{Binding File.Name}"
+                                           Margin="0,1,0,0"
+                                           TextTrimming="CharacterEllipsis" />
+                                
+                                <Button Grid.Column="1"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        Padding="0"
+                                        Margin="6,0,0,0"
+                                        HorizontalAlignment="Right"
+                                        Click="TrashButtonClick"
+                                        CommandParameter="{Binding Id}">
+                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                              Glyph="&#xE107;"
+                                              FontSize="16" />
+                                </Button>
+                            </Grid>
                         </Grid>
                     </DataTemplate>
                 </GridView.ItemTemplate>

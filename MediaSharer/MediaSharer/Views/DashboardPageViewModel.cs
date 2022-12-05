@@ -26,6 +26,7 @@ namespace MediaSharer.Views
         private FileOpenPicker picker;
         private ObservableCollection<Item> items;
         private Item selectedItem;
+        private int itemsCount;
 
         #endregion Private fields
 
@@ -65,6 +66,16 @@ namespace MediaSharer.Views
 
         #endregion Properties
 
+        #region Public methods
+
+        public void DeleteItem(int id)
+        {
+            items.Remove(items.SingleOrDefault(i => i.Id == id));
+            OnPropertyChanged(nameof(Items));
+        }
+
+        #endregion Public methods
+
         #region Override methods
 
         public override void LoadState()
@@ -78,6 +89,7 @@ namespace MediaSharer.Views
 
         private void Initialize()
         {
+            itemsCount = 0;
             items = new ObservableCollection<Item>();
             picker = new FileOpenPicker();
             picker.ViewMode = PickerViewMode.Thumbnail;
@@ -92,21 +104,32 @@ namespace MediaSharer.Views
 
             if (newFiles != null && newFiles.Count > 0)
             {
-                newFiles.ForEach(async n => {
+                foreach (var n in newFiles)
+                {
+                    var newItem = new Item() { Id = itemsCount, File = n };
+
                     if (IMAGE_FILE_TYPES.Contains(n.FileType))
                     {
                         using (IRandomAccessStream fileStream = await n.OpenAsync(FileAccessMode.Read))
                         {
                             BitmapImage bitmapImage = new BitmapImage();
                             bitmapImage.SetSource(fileStream);
-                            items.Add(new Item() { ImageContent = bitmapImage, Thumbnail = bitmapImage, HasThumbnail= true, ContentType = ContentType.Image });
+
+                            newItem.ImageContent = bitmapImage;
+                            newItem.Thumbnail = bitmapImage;
+                            newItem.HasThumbnail = true;
+                            newItem.ContentType = ContentType.Image;
                         }
                     }
                     else
                     {
-                        items.Add(new Item() { VideoContent = MediaSource.CreateFromStorageFile(n), ContentType = ContentType.Video, File = n });
+                        newItem.VideoContent = MediaSource.CreateFromStorageFile(n);
+                        newItem.ContentType = ContentType.Video;
                     }
-                });
+
+                    items.Add(newItem);
+                    itemsCount++;
+                }
                 
                 OnPropertyChanged(nameof(Items));
             }

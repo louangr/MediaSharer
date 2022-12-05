@@ -94,13 +94,14 @@ namespace MediaSharer.Views
 
         private void CloseButtonClick(object sender, RoutedEventArgs e)
         {
-            WeakReferenceMessenger.Default.Send(new StopItemSharingMessage());
-            GoBack();
-         
             if (IsFullScreen)
             {
                 ToggleFullScreen();
             }
+
+            WeakReferenceMessenger.Default.Send(new StopItemSharingMessage());
+            mediaPlayerElement.Visibility = Visibility.Collapsed;
+            GoBack();
         }
 
         private void GridContainerPointerExited(object sender, PointerRoutedEventArgs e)

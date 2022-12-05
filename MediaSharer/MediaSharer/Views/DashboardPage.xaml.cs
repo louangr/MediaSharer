@@ -1,4 +1,6 @@
 ﻿using MediaSharer.Core;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace MediaSharer.Views
 {
@@ -15,6 +17,12 @@ namespace MediaSharer.Views
         public DashboardPageViewModel PageViewModel
             => DataContext as DashboardPageViewModel;
 
-        #endregion
+        #endregion Properties
+
+        #region Private methods
+
+        private void TrashButtonClick(object sender, RoutedEventArgs e) => PageViewModel.DeleteItem((int)(sender as Button).CommandParameter);
+
+        #endregion Private methods
     }
 }
