@@ -1,5 +1,6 @@
 ﻿using System;
 using MediaSharer.Core;
+using MediaSharer.Strings;
 using Microsoft.UI.Xaml;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -44,6 +45,8 @@ namespace MediaSharer
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             MainWindow = new MainWindow();
+            MainWindow.Title = LocalizedStrings.GetString("AppName");
+
             WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(MainWindow);
 
             MainWindow.Activate();

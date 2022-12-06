@@ -8,11 +8,11 @@
 
 	<Identity
 	  Name="e15f6ea5-2508-4427-8a93-45092b528815"
-	  Publisher="CN=loulou"
+	  Publisher="CN=louangr"
 	  Version="1.0.0.0" />
 
 	<Properties>
-		<DisplayName>MediaSharer (Package)</DisplayName>
+		<DisplayName>Media Sharer</DisplayName>
 		<PublisherDisplayName>loulou</PublisherDisplayName>
 		<Logo>Images\StoreLogo.png</Logo>
 	</Properties>
@@ -32,12 +32,12 @@
 		  Executable="$targetnametoken$.exe"
 		  EntryPoint="$targetentrypoint$">
 			<uap:VisualElements
-			  DisplayName="MediaSharer (Package)"
-			  Description="MediaSharer (Package)"
+			  DisplayName="Media Sharer"
+			  Description="Windows desktop app that lets you project media on a second screen"
 			  BackgroundColor="transparent"
 			  Square150x150Logo="Images\Square150x150Logo.png"
 			  Square44x44Logo="Images\Square44x44Logo.png">
-				<uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+				<uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png"  Square71x71Logo="Images\SmallTile.png" Square310x310Logo="Images\LargeTile.png"/>
 				<uap:SplashScreen Image="Images\SplashScreen.png" />
 			</uap:VisualElements>
 		</Application>

@@ -1,5 +1,6 @@
 ﻿using System;
 using MediaSharer.Core;
+using MediaSharer.Strings;
 using MediaSharer.Views;
 using MediaSharer.Windows;
 using Microsoft.UI.Windowing;
@@ -42,7 +43,9 @@ namespace MediaSharer
 
         private void RenderProjectionWindow()
         {
-            ProjectionWindow projectionWindow = new();
+            var projectionWindow = new ProjectionWindow();
+            projectionWindow.Title = LocalizedStrings.GetString("AppName");
+
             SetProjectionWindowPosition(projectionWindow.As<IWindowNative>().WindowHandle);
             projectionWindow.SetWindowPresenter(AppWindowPresenterKind.FullScreen);
             projectionWindow.Activate();
