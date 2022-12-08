@@ -13,12 +13,16 @@ namespace MediaSharer
 {
     public sealed partial class MainWindow : Window
     {
+        private ProjectionWindow projectionWindow;
+
         public MainWindow()
         {
             InitializeComponent();
             LoadIcon("icon.ico");
             Navigate(typeof(DashboardPage));
             RenderProjectionWindow();
+
+            Closed += (sender, e) => projectionWindow?.Close();
         }
 
         #region Properties
@@ -44,14 +48,12 @@ namespace MediaSharer
 
         private void RenderProjectionWindow()
         {
-            var projectionWindow = new ProjectionWindow();
+            projectionWindow = new ProjectionWindow();
             projectionWindow.Title = LocalizedStrings.GetString("AppName");
 
             SetProjectionWindowPosition(projectionWindow.As<IWindowNative>().WindowHandle);
             projectionWindow.SetWindowPresenter(AppWindowPresenterKind.FullScreen);
             projectionWindow.Activate();
-
-            Closed += (sender, e) => { projectionWindow.Close(); };
         }
 
         private void SetProjectionWindowPosition(IntPtr hwnd)
