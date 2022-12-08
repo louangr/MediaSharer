@@ -135,6 +135,9 @@
   <data name="SettingsPage_AutoPlayLabel.Text" xml:space="preserve">
     <value>AutoPlay</value>
   </data>
+  <data name="SettingsPage_AutoPlaySublabel.Text" xml:space="preserve">
+    <value>Allow to automatically start playing multimedia content when it is shared</value>
+  </data>
   <data name="SettingsPage_ExternalPlayerControlsLabel.Text" xml:space="preserve">
     <value>External player controls</value>
   </data>

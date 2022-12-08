@@ -50,12 +50,14 @@ namespace MediaSharer.Windows
             }
             else
             {
-                var mediaPlayer = new MediaPlayer() { Source = MediaSource.CreateFromStorageFile(message.Item.File), TimelineController = message.MediaTimelineController };
+                var mediaPlayer = new MediaPlayer() { Source = MediaSource.CreateFromStorageFile(message.Item.File), TimelineController = message.MediaTimelineController, IsMuted = true };
                 mediaPlayer.CommandManager.IsEnabled = false;
 
                 mediaPlayerElement.Visibility = Visibility.Visible;
                 mediaPlayerElement.SetMediaPlayer(mediaPlayer);
             }
+
+            WeakReferenceMessenger.Default.Send(new StartItemSharingAcknowledgmentReceiptMessage(message.Item.ContentType));
         }
 
         private void StopItemSharingMessageReceived(object recipient, StopItemSharingMessage message)

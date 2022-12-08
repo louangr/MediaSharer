@@ -135,6 +135,9 @@
   <data name="SettingsPage_AutoPlayLabel.Text" xml:space="preserve">
     <value>AutoPlay</value>
   </data>
+  <data name="SettingsPage_AutoPlaySublabel.Text" xml:space="preserve">
+    <value>Permet de démarrer automatiquement la lecture d'un contenu multimédia lors de son partage</value>
+  </data>
   <data name="SettingsPage_ExternalPlayerControlsLabel.Text" xml:space="preserve">
     <value>Commandes du player externe</value>
   </data>

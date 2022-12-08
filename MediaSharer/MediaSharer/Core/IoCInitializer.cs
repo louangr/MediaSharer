@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using MediaSharer.Views;
+using MediaSharer.Repositories.Interfaces;
+using MediaSharer.Repositories.Implementations;
 
 namespace MediaSharer.Core
 {
@@ -12,6 +14,7 @@ namespace MediaSharer.Core
 
             // Repositories
             // services.AddSingleton<IMyRepository, MyRepository>();
+            services.AddSingleton<ISettingsRepository, SettingsRepository>();
 
             // Services
             // services.AddSingleton(typeof(MyService));

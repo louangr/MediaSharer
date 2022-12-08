@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using MediaSharer.Core;
 using MediaSharer.Messaging;
 using MediaSharer.Models;
+using MediaSharer.Repositories.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -19,10 +21,14 @@ namespace MediaSharer.Views
         private MediaTimelineController mediaTimelineController;
         private double videoDurationInSeconds;
         private bool isSeekSliderValueChangeable;
+        private ISettingsRepository settingsRepository;
 
         public PlayerPage()
         {
             this.InitializeComponent();
+            settingsRepository = App.Current.Services.GetService<ISettingsRepository>();
+
+            WeakReferenceMessenger.Default.Register<StartItemSharingAcknowledgmentReceiptMessage>(this, StartItemSharingAcknowledgmentReceiptMessageReceived);
         }
 
         #region Overridden methods
@@ -70,9 +76,9 @@ namespace MediaSharer.Views
             WeakReferenceMessenger.Default.Send(new StartItemSharingMessage(item, mediaTimelineController));
         }
 
-        private void PlayButtonClick(object sender, RoutedEventArgs e)
+        private void Play()
         {
-            var icon = (sender as Button).Content as FontIcon;
+            var icon = playButton.Content as FontIcon;
 
             if (mediaTimelineController.State == MediaTimelineControllerState.Running)
             {
@@ -162,6 +168,16 @@ namespace MediaSharer.Views
         private void CloseButtonClick(object sender, RoutedEventArgs e) => Close();
 
         private void OnMediaPlayerMediaEnded() => DispatcherQueue.TryEnqueue(() => Close());
+
+        private void PlayButtonClick(object sender, RoutedEventArgs e) => Play();
+
+        private void StartItemSharingAcknowledgmentReceiptMessageReceived(object recipient, StartItemSharingAcknowledgmentReceiptMessage message)
+        {
+            if (message.ContentType == ContentType.Video && settingsRepository.AutoPlay)
+            {
+                Play();
+            }
+        }
 
         #endregion Private methods
     }

@@ -8,6 +8,12 @@
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <core:CorePage.Resources>
+        <SolidColorBrush x:Key="SettingSublabelColorBrush"
+                         Color="{ThemeResource TextFillColorPrimary}"
+                         Opacity="0.6" />
+    </core:CorePage.Resources>
+
     <Grid Margin="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -24,7 +30,7 @@
 
             <TextBlock x:Uid="SettingsPage_TitleTextBlock"
                        FontSize="24"
-                       FontWeight="Thin"/>
+                       FontWeight="Thin" />
 
             <Button Grid.Column="2"
                     Background="Transparent"
@@ -41,9 +47,8 @@
         <ScrollViewer Grid.Row="1">
             <Grid Margin="24,12,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="144" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition MinWidth="500"
+                                      MaxWidth="700" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -52,25 +57,41 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock x:Uid="SettingsPage_AutoPlayLabel"
-                           FontSize="16"
-                           Margin="0,0,0,2"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Right" />
+                <Expander HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <TextBlock x:Uid="SettingsPage_AutoPlayLabel"
+                                   FontSize="16" />
+                    </Expander.Header>
 
-                <ToggleSwitch x:Uid="DefaultToggleSwitch"
-                              Grid.Column="2" />
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="72" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                <TextBlock x:Uid="SettingsPage_ExternalPlayerControlsLabel"
-                           Grid.Row="2"
-                           FontSize="16"
-                           Margin="0,0,0,2"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Right" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                <ToggleSwitch x:Uid="DefaultToggleSwitch"
-                              Grid.Column="2"
-                              Grid.Row="2" />
+                        <TextBlock x:Uid="SettingsPage_AutoPlayLabel"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   FontSize="16" />
+
+                        <ToggleSwitch x:Uid="DefaultToggleSwitch"
+                                      Grid.Column="2"
+                                      IsOn="{x:Bind PageViewModel.AutoPlay, Mode=TwoWay}" />
+
+                        <TextBlock x:Uid="SettingsPage_AutoPlaySublabel"
+                                   Grid.Row="1"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Right"
+                                   Foreground="{StaticResource SettingSublabelColorBrush}" />
+                    </Grid>
+                </Expander>
             </Grid>
         </ScrollViewer>
 
