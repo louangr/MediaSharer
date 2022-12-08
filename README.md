@@ -18,9 +18,9 @@ Download the latest package in the `Releases` section.
 You can deploy it yourself, for that you have to :
 - download sources
 - install Visual Studio
-- open the solution (`VISCACameraController.sln`)
+- open the solution (`MediaSharer.sln`)
 - download and install necessary SDKs
-- in the Solution Explorer, right-click the `VISCACameraController (Package)` project, choose `Publish` and click `Create App Packages...`
+- in the Solution Explorer, right-click the `MediaSharer (Package)` project, choose `Publish` and click `Create App Packages...`
 - select `Sideloading`, then click `Next`
 - select `Yes, select a certificate`, then click `Create` and fill fields
 - trust your new certificate, then click `Next`
