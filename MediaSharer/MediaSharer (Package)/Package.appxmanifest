@@ -9,7 +9,7 @@
 	<Identity
 	  Name="e15f6ea5-2508-4427-8a93-45092b528815"
 	  Publisher="CN=louangr"
-	  Version="1.0.0.0" />
+	  Version="1.0.1.0" />
 
 	<Properties>
 		<DisplayName>Media Sharer</DisplayName>
