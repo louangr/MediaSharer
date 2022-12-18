@@ -60,7 +60,7 @@
                 <Expander HorizontalAlignment="Stretch"
                           HorizontalContentAlignment="Stretch">
                     <Expander.Header>
-                        <TextBlock x:Uid="SettingsPage_AutoPlayLabel"
+                        <TextBlock x:Uid="SettingsPage_PlayerLabel"
                                    FontSize="16" />
                     </Expander.Header>
 
@@ -87,6 +87,94 @@
 
                         <TextBlock x:Uid="SettingsPage_AutoPlaySublabel"
                                    Grid.Row="1"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Right"
+                                   Foreground="{StaticResource SettingSublabelColorBrush}" />
+                    </Grid>
+                </Expander>
+
+                <Expander Grid.Row="2"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <TextBlock x:Uid="SettingsPage_ProjectionWindowLabel"
+                                   FontSize="16" />
+                    </Expander.Header>
+
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="72" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Button Grid.Column="2"
+                                Background="Transparent"
+                                Padding="0"
+                                BorderThickness="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top">
+                            <Button.Flyout>
+                                <Flyout>
+                                    <StackPanel Width="300">
+                                        <TextBlock TextWrapping="Wrap">
+                                            <Run x:Uid="SettingsPage_ProjectionWindowInfoLabel1" />
+                                            <Run x:Uid="SettingsPage_ProjectionWindowInfoLabel2" 
+                                                 FontStyle="Italic" />
+                                            <Run x:Uid="SettingsPage_ProjectionWindowInfoLabel3" />
+                                            <Hyperlink Click="ProjectionWindowInfoLabelHyperlinkClick">
+                                                <Run x:Uid="SettingsPage_ProjectionWindowInfoLabel4" />
+                                            </Hyperlink>
+                                            <Run x:Uid="SettingsPage_ProjectionWindowInfoLabel5" />
+                                            <Run x:Uid="SettingsPage_ProjectionWindowInfoLabel6" 
+                                                 FontStyle="Italic" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Flyout>
+                            </Button.Flyout>
+
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                      Margin="2,2,0,0"
+                                      Glyph="&#xE946;"
+                                      FontSize="20" />
+                        </Button>
+
+                        <TextBlock x:Uid="SettingsPage_FullScreenLabel"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   FontSize="16" />
+
+                        <ToggleSwitch x:Uid="DefaultToggleSwitch"
+                                      Grid.Column="2"
+                                      IsOn="{x:Bind PageViewModel.IsProjectionWindowFullScreenEnabled, Mode=TwoWay}" />
+
+                        <TextBlock x:Uid="SettingsPage_FullScreenSublabel"
+                                   Grid.Row="1"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Right"
+                                   Foreground="{StaticResource SettingSublabelColorBrush}" />
+
+                        <TextBlock x:Uid="SettingsPage_AlwaysOnTopLabel"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   FontSize="16"
+                                   Grid.Row="3" />
+
+                        <ToggleSwitch x:Uid="DefaultToggleSwitch"
+                                      Grid.Column="2"
+                                      Grid.Row="3"
+                                      IsOn="{x:Bind PageViewModel.IsProjectionWindowAlwaysOnTopWhenSharing, Mode=TwoWay}" />
+
+                        <TextBlock x:Uid="SettingsPage_AlwaysOnTopSublabel"
+                                   Grid.Row="4"
                                    TextWrapping="Wrap"
                                    TextAlignment="Right"
                                    Foreground="{StaticResource SettingSublabelColorBrush}" />

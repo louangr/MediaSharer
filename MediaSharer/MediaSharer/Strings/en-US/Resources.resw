@@ -132,6 +132,12 @@
   <data name="DefaultToggleSwitch.OnContent" xml:space="preserve">
     <value>On</value>
   </data>
+  <data name="SettingsPage_AlwaysOnTopLabel.Text" xml:space="preserve">
+    <value>Always on top</value>
+  </data>
+  <data name="SettingsPage_AlwaysOnTopSublabel.Text" xml:space="preserve">
+    <value>Allow to put the projection screen in the front when sharing</value>
+  </data>
   <data name="SettingsPage_AutoPlayLabel.Text" xml:space="preserve">
     <value>AutoPlay</value>
   </data>
@@ -140,6 +146,36 @@
   </data>
   <data name="SettingsPage_ExternalPlayerControlsLabel.Text" xml:space="preserve">
     <value>External player controls</value>
+  </data>
+  <data name="SettingsPage_FullScreenLabel.Text" xml:space="preserve">
+    <value>Full screen</value>
+  </data>
+  <data name="SettingsPage_FullScreenSublabel.Text" xml:space="preserve">
+    <value>Allow to put the projection screen in full screen</value>
+  </data>
+  <data name="SettingsPage_PlayerLabel.Text" xml:space="preserve">
+    <value>Player</value>
+  </data>
+  <data name="SettingsPage_ProjectionWindowInfoLabel1.Text" xml:space="preserve">
+    <value>If both are needed, a workaround is to enable</value>
+  </data>
+  <data name="SettingsPage_ProjectionWindowInfoLabel2.Text" xml:space="preserve">
+    <value>Always on top</value>
+  </data>
+  <data name="SettingsPage_ProjectionWindowInfoLabel3.Text" xml:space="preserve">
+    <value>and in the</value>
+  </data>
+  <data name="SettingsPage_ProjectionWindowInfoLabel4.Text" xml:space="preserve">
+    <value>Taskbar</value>
+  </data>
+  <data name="SettingsPage_ProjectionWindowInfoLabel5.Text" xml:space="preserve">
+    <value>section of the Settings, disable</value>
+  </data>
+  <data name="SettingsPage_ProjectionWindowInfoLabel6.Text" xml:space="preserve">
+    <value>Show my taskbar on all screens</value>
+  </data>
+  <data name="SettingsPage_ProjectionWindowLabel.Text" xml:space="preserve">
+    <value>Projection screen</value>
   </data>
   <data name="SettingsPage_TitleTextBlock.Text" xml:space="preserve">
     <value>Settings</value>

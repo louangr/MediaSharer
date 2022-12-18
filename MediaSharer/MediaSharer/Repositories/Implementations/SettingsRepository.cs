@@ -16,6 +16,18 @@ namespace MediaSharer.Repositories.Implementations
             set => TrySetLocalValue(nameof(AutoPlay), value);
         }
 
+        public bool IsProjectionWindowFullScreenEnabled
+        {
+            get => TryGetLocalValue(nameof(IsProjectionWindowFullScreenEnabled), false);
+            set => TrySetLocalValue(nameof(IsProjectionWindowFullScreenEnabled), value);
+        }
+
+        public bool IsProjectionWindowAlwaysOnTopWhenSharing
+        {
+            get => TryGetLocalValue(nameof(IsProjectionWindowAlwaysOnTopWhenSharing), true);
+            set => TrySetLocalValue(nameof(IsProjectionWindowAlwaysOnTopWhenSharing), value);
+        }
+
         #endregion Publics Properties
 
         #region Private Methods

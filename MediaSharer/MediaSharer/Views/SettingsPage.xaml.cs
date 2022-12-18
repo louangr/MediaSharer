@@ -1,4 +1,7 @@
-﻿using MediaSharer.Core;
+﻿using System;
+using MediaSharer.Core;
+using Microsoft.UI.Xaml.Documents;
+using Windows.System;
 
 namespace MediaSharer.Views
 {
@@ -16,5 +19,11 @@ namespace MediaSharer.Views
             => DataContext as SettingsPageViewModel;
 
         #endregion Properties
+
+        #region Private methods
+
+        private async void ProjectionWindowInfoLabelHyperlinkClick(Hyperlink sender, HyperlinkClickEventArgs args) => await Launcher.LaunchUriAsync(new Uri("ms-settings:taskbar"));
+        
+        #endregion Private methods
     }
 }

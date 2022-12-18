@@ -1,24 +1,31 @@
 ﻿using System;
-using MediaSharer.Core;
+using MediaSharer.Repositories.Interfaces;
 using MediaSharer.Strings;
+using MediaSharer.Utils;
 using MediaSharer.Views;
 using MediaSharer.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Animation;
-using WinRT;
 using WinUIEx;
 
 namespace MediaSharer
 {
     public sealed partial class MainWindow : Window
     {
+        private readonly string ICON_FILE_NAME = "icon.ico";
+
         private ProjectionWindow projectionWindow;
+        private ISettingsRepository settingsRepository;
 
         public MainWindow()
         {
             InitializeComponent();
-            LoadIcon("icon.ico");
+
+            settingsRepository = App.Current.Services.GetService<ISettingsRepository>();
+
+            WinApi.LoadIcon(this, ICON_FILE_NAME);
             Navigate(typeof(DashboardPage));
             RenderProjectionWindow();
 
@@ -50,23 +57,11 @@ namespace MediaSharer
         {
             projectionWindow = new ProjectionWindow();
             projectionWindow.Title = LocalizedStrings.GetString("AppName");
-
-            SetProjectionWindowPosition(projectionWindow.As<IWindowNative>().WindowHandle);
-            projectionWindow.SetWindowPresenter(AppWindowPresenterKind.FullScreen);
+            projectionWindow.SetPosition();
+            WinApi.LoadIcon(projectionWindow, ICON_FILE_NAME);
+            projectionWindow.Maximize();
+            if (settingsRepository.IsProjectionWindowFullScreenEnabled) projectionWindow.SetWindowPresenter(AppWindowPresenterKind.FullScreen);
             projectionWindow.Activate();
-        }
-
-        private void SetProjectionWindowPosition(IntPtr hwnd)
-        {
-            var xPosition = DisplayArea.Primary.WorkArea.Width;
-            PInvoke.User32.SetWindowPos(hwnd, PInvoke.User32.SpecialWindowHandles.HWND_TOP, xPosition, 0, 0, 0, PInvoke.User32.SetWindowPosFlags.SWP_NOSIZE);
-        }
-
-        private void LoadIcon(string iconName)
-        {
-            var hwnd = this.As<IWindowNative>().WindowHandle;
-            IntPtr hIcon = PInvoke.User32.LoadImage(IntPtr.Zero, iconName, PInvoke.User32.ImageType.IMAGE_ICON, 16, 16, PInvoke.User32.LoadImageFlags.LR_LOADFROMFILE);
-            PInvoke.User32.SendMessage(hwnd, PInvoke.User32.WindowMessage.WM_SETICON, (IntPtr)0, hIcon);
         }
 
         #endregion Private methods

@@ -6,8 +6,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d">
 
-    <Grid Background="#000000"
+    <Grid Background="Black"
           DoubleTapped="GridContainerDoubleTapped">
+        <Border x:Name="titleBar"
+                VerticalAlignment="Top" />
+
         <Image x:Name="imageElement"
                Stretch="Uniform"
                Visibility="Collapsed" />

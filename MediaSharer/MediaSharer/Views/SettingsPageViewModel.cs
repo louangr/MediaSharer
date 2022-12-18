@@ -29,6 +29,36 @@ namespace MediaSharer.Views
             }
         }
 
+        public bool IsProjectionWindowFullScreenEnabled
+        {
+            get => settingsRepository.IsProjectionWindowFullScreenEnabled;
+            set
+            {
+                if (value)
+                {
+                    settingsRepository.IsProjectionWindowAlwaysOnTopWhenSharing = false;
+                    OnPropertyChanged(nameof(IsProjectionWindowAlwaysOnTopWhenSharing));
+                }
+
+                settingsRepository.IsProjectionWindowFullScreenEnabled = value;
+            }
+        }
+
+        public bool IsProjectionWindowAlwaysOnTopWhenSharing
+        {
+            get => settingsRepository.IsProjectionWindowAlwaysOnTopWhenSharing;
+            set
+            {
+                if (value)
+                {
+                    settingsRepository.IsProjectionWindowFullScreenEnabled = false;
+                    OnPropertyChanged(nameof(IsProjectionWindowFullScreenEnabled));
+                }
+
+                settingsRepository.IsProjectionWindowAlwaysOnTopWhenSharing = value;
+            }
+        }
+
         public RelayCommand GoBackCommand
             => goBackCommand ?? (goBackCommand = new RelayCommand(() => GoBack()));
 
