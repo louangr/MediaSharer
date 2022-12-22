@@ -29,6 +29,15 @@ namespace MediaSharer.Views
             }
         }
 
+        public bool AutoStop
+        {
+            get => settingsRepository.AutoStop;
+            set
+            {
+                settingsRepository.AutoStop = value;
+            }
+        }
+
         public bool IsProjectionWindowFullScreenEnabled
         {
             get => settingsRepository.IsProjectionWindowFullScreenEnabled;

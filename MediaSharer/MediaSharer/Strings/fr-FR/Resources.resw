@@ -144,6 +144,12 @@
   <data name="SettingsPage_AutoPlaySublabel.Text" xml:space="preserve">
     <value>Permet de démarrer automatiquement la lecture d'un contenu multimédia lors de son partage</value>
   </data>
+  <data name="SettingsPage_AutoStopLabel.Text" xml:space="preserve">
+    <value>AutoStop</value>
+  </data>
+  <data name="SettingsPage_AutoStopSublabel.Text" xml:space="preserve">
+    <value>Permet d'arrêter automatiquement le partage une fois la fin du contenu multimédia</value>
+  </data>
   <data name="SettingsPage_ExternalPlayerControlsLabel.Text" xml:space="preserve">
     <value>Commandes du player externe</value>
   </data>

@@ -167,7 +167,13 @@ namespace MediaSharer.Views
 
         private void CloseButtonClick(object sender, RoutedEventArgs e) => Close();
 
-        private void OnMediaPlayerMediaEnded() => DispatcherQueue.TryEnqueue(() => Close());
+        private void OnMediaPlayerMediaEnded()
+        {
+            if (settingsRepository.AutoStop)
+            {
+                DispatcherQueue.TryEnqueue(() => Close());
+            }
+        }
 
         private void PlayButtonClick(object sender, RoutedEventArgs e) => Play();
 

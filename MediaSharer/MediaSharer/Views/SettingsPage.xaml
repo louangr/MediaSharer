@@ -74,6 +74,9 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <TextBlock x:Uid="SettingsPage_AutoPlayLabel"
@@ -87,6 +90,23 @@
 
                         <TextBlock x:Uid="SettingsPage_AutoPlaySublabel"
                                    Grid.Row="1"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Right"
+                                   Foreground="{StaticResource SettingSublabelColorBrush}" />
+
+                        <TextBlock x:Uid="SettingsPage_AutoStopLabel"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   FontSize="16"
+                                   Grid.Row="3" />
+
+                        <ToggleSwitch x:Uid="DefaultToggleSwitch"
+                                      Grid.Column="2"
+                                      Grid.Row="3"
+                                      IsOn="{x:Bind PageViewModel.AutoStop, Mode=TwoWay}" />
+
+                        <TextBlock x:Uid="SettingsPage_AutoStopSublabel"
+                                   Grid.Row="4"
                                    TextWrapping="Wrap"
                                    TextAlignment="Right"
                                    Foreground="{StaticResource SettingSublabelColorBrush}" />

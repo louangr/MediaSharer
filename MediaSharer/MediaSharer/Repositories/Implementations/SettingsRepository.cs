@@ -16,6 +16,12 @@ namespace MediaSharer.Repositories.Implementations
             set => TrySetLocalValue(nameof(AutoPlay), value);
         }
 
+        public bool AutoStop
+        {
+            get => TryGetLocalValue(nameof(AutoStop), false);
+            set => TrySetLocalValue(nameof(AutoStop), value);
+        }
+
         public bool IsProjectionWindowFullScreenEnabled
         {
             get => TryGetLocalValue(nameof(IsProjectionWindowFullScreenEnabled), false);

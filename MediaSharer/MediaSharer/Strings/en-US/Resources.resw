@@ -142,7 +142,13 @@
     <value>AutoPlay</value>
   </data>
   <data name="SettingsPage_AutoPlaySublabel.Text" xml:space="preserve">
-    <value>Allow to automatically start playing multimedia content when it is shared</value>
+    <value>Allow to automatically start playing media content when it is shared</value>
+  </data>
+  <data name="SettingsPage_AutoStopLabel.Text" xml:space="preserve">
+    <value>AutoStop</value>
+  </data>
+  <data name="SettingsPage_AutoStopSublabel.Text" xml:space="preserve">
+    <value>Allow to automatically stop the sharing after end of media content</value>
   </data>
   <data name="SettingsPage_ExternalPlayerControlsLabel.Text" xml:space="preserve">
     <value>External player controls</value>
